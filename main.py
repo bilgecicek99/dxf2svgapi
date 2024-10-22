@@ -7,7 +7,7 @@ from math import cos, sin, radians
 from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)  # Tüm kaynaklara izin ver. Eğer belirli bir alanı hedeflemek isterseniz, yukarıdaki örnekteki gibi değiştirebilirsiniz.
 
 def dxf_to_svg(dxf_file_path, svg_file_path):
     """DXF dosyasını SVG'ye dönüştürür."""
@@ -35,13 +35,13 @@ def dxf_to_svg(dxf_file_path, svg_file_path):
         start_angle = entity.dxf.start_angle
         end_angle = entity.dxf.end_angle
 
-        # Calculate start and end points using math functions
+        # Başlangıç ve bitiş noktalarını hesapla
         start_x = center.x + radius * cos(radians(start_angle))
         start_y = center.y + radius * sin(radians(start_angle))
         end_x = center.x + radius * cos(radians(end_angle))
         end_y = center.y + radius * sin(radians(end_angle))
 
-        # Create SVG arc path
+        # SVG yay yolu oluştur
         large_arc_flag = '1' if abs(end_angle - start_angle) > 180 else '0'
         sweep_flag = '1' if end_angle > start_angle else '0'
 
